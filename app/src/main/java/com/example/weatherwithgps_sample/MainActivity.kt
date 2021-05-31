@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         }else if (networkLocation != null){
             showInfo(networkLocation)
         }else{
-            Log.d("location", "GPS 연결 실패")
+            Toast.makeText(App.context, "GPS 연결 실패", Toast.LENGTH_SHORT).show()
         }
     }
     fun showInfo(location : Location){
