@@ -9,6 +9,7 @@ object Weather{
     var feels = 0L
     var humility = 0L
     var wind = 0L
-    var sunSet = 0
-    var sunRise = 0
+    var sunSet = 0L
+    var sunRise = 0L
+    var country = ""
 }

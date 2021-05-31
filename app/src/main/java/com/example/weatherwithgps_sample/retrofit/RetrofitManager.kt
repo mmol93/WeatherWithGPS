@@ -61,6 +61,16 @@ class RetrofitManager {
                             val wind = body.getAsJsonObject("wind").asJsonObject
                             // 바람 속도
                             Weather.wind = wind.get("speed").asLong
+
+                            // 시스템에 관한 값 가져오기
+                            val sys = body.getAsJsonObject("sys").asJsonObject
+                            // 해뜨는 시간
+                            Weather.sunRise = sys.get("sunrise").asLong
+                            // 해 지는 시간
+                            Weather.sunSet = sys.get("sunset").asLong
+                            // 국가
+                            Weather.country = sys.get("country").asString
+
                         }
                         completion()
                     }

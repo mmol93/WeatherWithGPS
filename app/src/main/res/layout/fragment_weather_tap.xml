@@ -259,7 +259,7 @@
                                 android:textColor="@color/white"
                                 android:text="Feels like"/>
                             <TextView
-                                android:id="@+id/pressure"
+                                android:id="@+id/feelsLike"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14dp"

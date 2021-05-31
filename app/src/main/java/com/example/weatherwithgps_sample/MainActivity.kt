@@ -26,12 +26,6 @@ class MainActivity : AppCompatActivity() {
         binder = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binder.root)
 
-        // frameLayout를 fragment로 교체하기
-        val weatherTap = WeatherTap()
-        val trans = supportFragmentManager.beginTransaction()
-        trans.replace(binder.container.id, weatherTap)
-        trans.commit()
-
         // 권한 리스트에 있는 권한 요청하기
         requestPermissions(permission_list, 0)
     }
@@ -74,6 +68,12 @@ class MainActivity : AppCompatActivity() {
         }else{
             Toast.makeText(App.context, "GPS 연결 실패", Toast.LENGTH_SHORT).show()
         }
+
+        // frameLayout를 fragment로 교체하기
+        val weatherTap = WeatherTap()
+        val trans = supportFragmentManager.beginTransaction()
+        trans.replace(binder.container.id, weatherTap)
+        trans.commit()
     }
     fun showInfo(location : Location){
         if (location != null){
@@ -84,13 +84,20 @@ class MainActivity : AppCompatActivity() {
             // 즉, address[0]에는 1번 후보가 들어가 있는 것임
             val addresses: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
             if (addresses.isNotEmpty()) {
+                // 경도 위도 저장
+                App.lon = location.longitude
+                App.lat = location.latitude
+
                 // 경도와 위도를 이용하여 주소 이름 알아내기
                 App.provider = location.provider
-                App.countryName = addresses[0].countryName
+                App.countryCode = addresses[0].countryCode
+                App.stateCode = addresses[0].postalCode
                 App.stateName = addresses[0].adminArea
                 App.cityName = addresses[0].locality
                 Log.d("location", "provider: ${location.provider}")
                 Log.d("location", "countryName: ${addresses[0].countryName}")
+                Log.d("location", "countryCode: ${addresses[0].countryCode}")
+                Log.d("location", "stateCode: ${addresses[0].postalCode}")
                 Log.d("location", "stateName: ${addresses[0].adminArea}")
                 Log.d("location", "cityName: ${addresses[0].locality}")
             }

@@ -7,9 +7,12 @@ class App : Application() {
     companion object{
         lateinit var context : App
         var provider = ""
-        var countryName = ""
+        var countryCode = ""
+        var stateCode = ""
         var stateName = ""
         var cityName = ""
+        var lat = 0.0
+        var lon = 0.0
     }
 
     // 항상 어떤 Activity가 실행되면 해당 Activity의 context 가져오게 하기
