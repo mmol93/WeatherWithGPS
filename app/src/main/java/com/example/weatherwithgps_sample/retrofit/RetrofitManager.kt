@@ -31,7 +31,7 @@ class RetrofitManager {
                             val body = it!!.asJsonObject
                             // 2차: 원하는 JsonArray 가져와서 JsonObject로 분해
                             val weatherArray = body.getAsJsonArray("weather")
-                            val weatherData = weatherArray.asJsonObject
+                            val weatherData = weatherArray[0].asJsonObject
                             // 3차 JsonObject 가져왔으면 그 안에서 필요한 요소 다시 가져오기
                             Weather.main = weatherData.get("main").asString
                             Weather.description = weatherData.get("description").asString
