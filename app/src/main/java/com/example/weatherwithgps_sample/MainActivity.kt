@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity() {
             showInfo(gpsLocation)
         }else if (networkLocation != null){
             showInfo(networkLocation)
+        }else{
+            Log.d("location", "GPS 연결 실패")
         }
     }
     fun showInfo(location : Location){
@@ -83,10 +85,14 @@ class MainActivity : AppCompatActivity() {
             val addresses: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1)
             if (addresses.isNotEmpty()) {
                 // 경도와 위도를 이용하여 주소 이름 알아내기
-                val provider = location.provider
-                val countryName = addresses[0].countryName
-                val adminArea = addresses[0].adminArea
-                val cityName = addresses[0].locality
+                App.provider = location.provider
+                App.countryName = addresses[0].countryName
+                App.stateName = addresses[0].adminArea
+                App.cityName = addresses[0].locality
+                Log.d("location", "provider: ${location.provider}")
+                Log.d("location", "countryName: ${addresses[0].countryName}")
+                Log.d("location", "stateName: ${addresses[0].adminArea}")
+                Log.d("location", "cityName: ${addresses[0].locality}")
             }
         }
     }

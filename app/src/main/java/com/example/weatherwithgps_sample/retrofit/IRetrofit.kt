@@ -10,8 +10,6 @@ import retrofit2.http.Query
 interface IRetrofit {
     @GET("data/2.5/weather")
     fun getWeatherData(
-        @Query("city name") cityName : String,
-        @Query("state code") stateCode : String,
-        @Query("country code") countryCode : String,
+        @Query("q") locationInfo : String,
         @Query("appid") Id : String) : Call<JsonElement>
 }
