@@ -12,4 +12,11 @@ interface IRetrofit {
     fun getWeatherData(
         @Query("q") locationInfo : String,
         @Query("appid") Id : String) : Call<JsonElement>
+
+    @GET("data/2.5/onecall")
+    fun getForecast(
+        @Query("lat") lat : String,
+        @Query("lon") lon : String,
+        @Query("exclude") part : String,
+        @Query("appid") Id : String) : Call<JsonElement>
 }

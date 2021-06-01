@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.weatherwithgps_sample.API
 import com.example.weatherwithgps_sample.Weather
 import com.google.gson.JsonElement
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -79,6 +80,20 @@ class RetrofitManager {
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 Log.d("retrofit", "접속 실패, 태그: $t")
+            }
+        })
+    }
+    // 날씨 예보에 대한 API 가져오기
+    fun getForecast(lat : String, lon : String, part : String, appid : String, completion: () -> Unit){
+        val call = iRetrofit?.getForecast(lat, lon, part, appid) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement>{
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d("retrofit2", "접속 성공\n, response: ${response.body()}, code: ${response.code()}")
+            }
+
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                TODO("Not yet implemented")
             }
         })
     }

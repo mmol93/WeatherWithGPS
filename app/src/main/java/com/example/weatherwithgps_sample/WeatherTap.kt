@@ -31,7 +31,7 @@ class WeatherTap : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd, HH:mm", Locale.getDefault())
         val now = sdf.format(Date())
 
-        // API 호출
+        // current weather API 호출
         val locationInfo = "${App.cityName}, ${App.stateCode}, ${App.countryCode}"
         RetrofitManager.instance.getCurrentWeatherData(locationInfo, API.ID,
         completion = {
@@ -67,6 +67,13 @@ class WeatherTap : Fragment() {
             binder.wind.text = "${Weather.wind}m/s"
             binder.feelsLike.text = Weather.feels.toString() + "℃"
             binder.humidity.text = Weather.humility.toString()
+        })
+
+        // weather forecast API 데이터 호출
+        RetrofitManager.instance.getForecast("${App.lat}", "${App.lon}", "hourly.temp", API.ID,
+        completion = {
+            // 결과 값 출력
+
         })
     }
 }
