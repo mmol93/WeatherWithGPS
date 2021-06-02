@@ -91,7 +91,39 @@ class RetrofitManager {
                 Log.d("retrofit2", "접속 성공\n, response: ${response.body()}, code: ${response.code()}")
                 when(response.code()){
                     200 -> {
+                        response.body().let {
+                            val body = it!!.asJsonObject
+                            // hourly JsonArray 가져오기 - 여기에 시간별 날씨 데이터 있음
+                            val hourlyForecast = body.getAsJsonArray("hourly")
+                            // 각 데이터를 위한 리스트를 만든다
+                            val hourlyTemp : ArrayList<Long>  // 온도
+                            val hourlyPop : ArrayList<Int> // 강수 확률
+                            val hourlyWind : ArrayList<Long> // 바람 속도
+                            val hourlyUvi : ArrayList<Long> // 자외선 지수
+                            val main : ArrayList<String> // 날씨 설명
 
+                            val unit = 0..27 step 3    // for를 위한 카운터용 배열
+
+                            // 인덱스는 0부터 하여 3시간 단위로 데이터를 가져온다
+                            for (i in unit){
+                                val forecastBody = hourlyForecast[i].asJsonObject
+                                val temp = forecastBody.get("temp").asLong
+                                val pop = forecastBody.get("pop").asInt
+                                val wind = forecastBody.get("wind_speed").asInt
+                                val uvi = forecastBody.get("uvi").asLong
+                                val weatherArray = forecastBody.getAsJsonArray("weather")
+                                val weatherBody = weatherArray[0].asJsonObject
+                                val main = weatherBody.get("main").asString
+
+                                Log.d("retrofit2", "temp: $")
+                                Log.d("retrofit2", "pop: $pop")
+                                Log.d("retrofit2", "wind: $wind")
+                                Log.d("retrofit2", "uvi: $uvi")
+                                Log.d("retrofit2", "main: $main")
+
+                                val temp_trans = (temp - 273.15)
+                            }
+                        }
                     }
                 }
             }
@@ -102,3 +134,4 @@ class RetrofitManager {
         })
     }
 }
+
