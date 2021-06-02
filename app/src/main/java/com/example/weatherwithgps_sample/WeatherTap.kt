@@ -3,10 +3,8 @@ package com.example.weatherwithgps_sample
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.example.weatherwithgps_sample.databinding.FragmentWeatherTapBinding
 import com.example.weatherwithgps_sample.retrofit.RetrofitManager
@@ -27,6 +25,7 @@ class WeatherTap : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // 현재 날짜 가져오기
         val sdf = SimpleDateFormat("yyyy-MM-dd, HH:mm", Locale.getDefault())
         val now = sdf.format(Date())

@@ -25,7 +25,6 @@ class RetrofitManager {
                 Log.d("retrofit", "접속 성공\n, response: ${response.body()}, code: ${response.code()}")
                 when(response.code()){
                     200 ->{
-                        val weatherDataList = ArrayList<String>()
                         // response.body()에 어떤 값이 있을 경우
                         response.body().let {
                             // 1차: JsonObject 분해
@@ -90,10 +89,15 @@ class RetrofitManager {
         call.enqueue(object : retrofit2.Callback<JsonElement>{
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 Log.d("retrofit2", "접속 성공\n, response: ${response.body()}, code: ${response.code()}")
+                when(response.code()){
+                    200 -> {
+
+                    }
+                }
             }
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("retrofit2", "접속 실패, 태그: $t")
             }
         })
     }

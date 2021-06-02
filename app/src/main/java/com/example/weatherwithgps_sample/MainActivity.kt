@@ -1,6 +1,7 @@
 package com.example.weatherwithgps_sample
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.example.weatherwithgps_sample.databinding.ActivityMainBinding
 import java.util.*
