@@ -70,9 +70,16 @@ class WeatherTap : Fragment() {
 
         // weather forecast API 데이터 호출
         RetrofitManager.instance.getForecast("${App.lat}", "${App.lon}", "hourly.temp", API.ID,
-        completion = {
-            // 결과 값 출력
+        completion = { hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain ->
+            // 결과 값 로그 출력
+            Log.d("retrofit2", "from UI level, hourlyTemp: $hourlyTemp")
+            Log.d("retrofit2", "from UI level, hourlyPop: $hourlyPop")
+            Log.d("retrofit2", "from UI level, hourlyWind: $hourlyWind")
+            Log.d("retrofit2", "from UI level, hourlyUvi: $hourlyUvi")
+            Log.d("retrofit2", "from UI level, hourlyMain: $hourlyMain")
 
+            // 시간별 데이터를 리사이클러 어댑터에 보내기
+            
         })
     }
 }

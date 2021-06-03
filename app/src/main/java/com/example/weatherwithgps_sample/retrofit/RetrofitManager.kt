@@ -83,7 +83,9 @@ class RetrofitManager {
         })
     }
     // 날씨 예보에 대한 API 가져오기
-    fun getForecast(lat : String, lon : String, part : String, appid : String, completion: () -> Unit){
+    fun getForecast(lat : String, lon : String, part : String, appid : String, completion: (
+        ArrayList<Long>, ArrayList<Int>, ArrayList<Int>, ArrayList<Long>, ArrayList<String>
+            ) -> Unit){
         val call = iRetrofit?.getForecast(lat, lon, part, appid) ?: return
 
         call.enqueue(object : retrofit2.Callback<JsonElement>{
@@ -96,11 +98,11 @@ class RetrofitManager {
                             // hourly JsonArray 가져오기 - 여기에 시간별 날씨 데이터 있음
                             val hourlyForecast = body.getAsJsonArray("hourly")
                             // 각 데이터를 위한 리스트를 만든다
-                            val hourlyTemp : ArrayList<Long>  // 온도
-                            val hourlyPop : ArrayList<Int> // 강수 확률
-                            val hourlyWind : ArrayList<Long> // 바람 속도
-                            val hourlyUvi : ArrayList<Long> // 자외선 지수
-                            val main : ArrayList<String> // 날씨 설명
+                            val hourlyTemp = ArrayList<Long>()  // 온도
+                            val hourlyPop = ArrayList<Int>() // 강수 확률
+                            val hourlyWind = ArrayList<Int>() // 바람 속도
+                            val hourlyUvi = ArrayList<Long>() // 자외선 지수
+                            val hourlyMain = ArrayList<String>() // 날씨 설명
 
                             val unit = 0..27 step 3    // for를 위한 카운터용 배열
 
@@ -115,19 +117,27 @@ class RetrofitManager {
                                 val weatherBody = weatherArray[0].asJsonObject
                                 val main = weatherBody.get("main").asString
 
-                                Log.d("retrofit2", "temp: $")
+                                Log.d("retrofit2", "temp: $temp")
                                 Log.d("retrofit2", "pop: $pop")
                                 Log.d("retrofit2", "wind: $wind")
                                 Log.d("retrofit2", "uvi: $uvi")
                                 Log.d("retrofit2", "main: $main")
 
+                                // 온도의 경우 절대 온도로 가져오기 때문에 섭씨는 변환이 필요하다
                                 val temp_trans = (temp - 273.15)
+
+                                // 각 데이터를 리스트에 넣기
+                                hourlyTemp.add(temp_trans.toLong())
+                                hourlyPop.add(pop)
+                                hourlyWind.add(wind)
+                                hourlyUvi.add(uvi)
+                                hourlyMain.add(main)
                             }
+                            completion(hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain)
                         }
                     }
                 }
             }
-
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 Log.d("retrofit2", "접속 실패, 태그: $t")
             }

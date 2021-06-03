@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/weather_background"
+    android:background="@color/new_alarm_background"
     >
 
     <ScrollView
@@ -31,13 +31,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="15dp"
                     app:srcCompat="@drawable/sunrise"
                     app:tint="@color/white" />
@@ -55,7 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="end"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingRight="10dp">
 
                     <TextView
                         android:id="@+id/textView3"
