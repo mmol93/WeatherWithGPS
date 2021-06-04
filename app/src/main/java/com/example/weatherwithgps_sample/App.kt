@@ -13,6 +13,8 @@ class App : Application() {
         var cityName = ""
         var lat = 0.0
         var lon = 0.0
+        val hour = ArrayList<String>()
+        val min = ArrayList<String>()
     }
 
     // 항상 어떤 Activity가 실행되면 해당 Activity의 context 가져오게 하기

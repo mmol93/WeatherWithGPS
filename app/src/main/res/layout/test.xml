@@ -92,7 +92,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="vertical"
@@ -100,11 +100,9 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hourly_recycler"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
-            </LinearLayout>
-
-
+            </HorizontalScrollView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -2,11 +2,13 @@ package com.example.weatherwithgps_sample.retrofit
 
 import android.util.Log
 import com.example.weatherwithgps_sample.API
+import com.example.weatherwithgps_sample.App
 import com.example.weatherwithgps_sample.Weather
 import com.google.gson.JsonElement
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
+import kotlin.math.roundToLong
 
 class RetrofitManager {
     companion object{
@@ -55,12 +57,11 @@ class RetrofitManager {
                             Weather.temp = (Weather.temp - 273.15).toLong()
                             Weather.max_temp = (Weather.max_temp - 273.15).toLong()
                             Weather.min_temp = (Weather.min_temp - 273.15).toLong()
-                            Weather.feels = (Weather.feels - 273.15).toLong()
+
 
                             // 바람에 관한 JsonObject 가져오기
                             val wind = body.getAsJsonObject("wind").asJsonObject
-                            // 바람 속도
-                            Weather.wind = wind.get("speed").asLong
+                            // 바람 속도 -> OneCall API에서 가져오도록 바꿈
 
                             // 시스템에 관한 값 가져오기
                             val sys = body.getAsJsonObject("sys").asJsonObject
@@ -84,7 +85,7 @@ class RetrofitManager {
     }
     // 날씨 예보에 대한 API 가져오기
     fun getForecast(lat : String, lon : String, part : String, appid : String, completion: (
-        ArrayList<Long>, ArrayList<Int>, ArrayList<Int>, ArrayList<Long>, ArrayList<String>
+        ArrayList<Long>, ArrayList<Double>, ArrayList<Int>, ArrayList<Double>, ArrayList<String>
             ) -> Unit){
         val call = iRetrofit?.getForecast(lat, lon, part, appid) ?: return
 
@@ -99,39 +100,74 @@ class RetrofitManager {
                             val hourlyForecast = body.getAsJsonArray("hourly")
                             // 각 데이터를 위한 리스트를 만든다
                             val hourlyTemp = ArrayList<Long>()  // 온도
-                            val hourlyPop = ArrayList<Int>() // 강수 확률
+                            val hourlyPop = ArrayList<Double>() // 강수 확률
                             val hourlyWind = ArrayList<Int>() // 바람 속도
-                            val hourlyUvi = ArrayList<Long>() // 자외선 지수
+                            val hourlyUvi = ArrayList<Double>() // 자외선 지수
                             val hourlyMain = ArrayList<String>() // 날씨 설명
 
-                            val unit = 0..27 step 3    // for를 위한 카운터용 배열
+                            val unit = 0..30 step 3    // for를 위한 카운터용 배열
 
                             // 인덱스는 0부터 하여 3시간 단위로 데이터를 가져온다
                             for (i in unit){
                                 val forecastBody = hourlyForecast[i].asJsonObject
-                                val temp = forecastBody.get("temp").asLong
-                                val pop = forecastBody.get("pop").asInt
-                                val wind = forecastBody.get("wind_speed").asInt
-                                val uvi = forecastBody.get("uvi").asLong
-                                val weatherArray = forecastBody.getAsJsonArray("weather")
-                                val weatherBody = weatherArray[0].asJsonObject
-                                val main = weatherBody.get("main").asString
+                                // i = 0 일 때는 현재 날씨 예보이다
+                                // 이 부분은 강수확률 데이터만 필요하다
+                                if (i == 0){
+                                    val rainPercent = forecastBody.get("pop").asDouble
+                                    Weather.rainPercent = (rainPercent * 100).toInt()
+                                    Weather.wind = forecastBody.get("wind_speed").asInt
+                                    val feelLike = forecastBody.get("feels_like").asLong
+                                    Weather.feels = (feelLike - 273.15).roundToLong()
+                                    val uvi = forecastBody.get("uvi").asDouble
+                                    if (uvi > 2){
+                                        Weather.uvi = "높음"
+                                    }else if(uvi > 1){
+                                        Weather.uvi = "보통"
+                                    }else{
+                                        Weather.uvi = "낮음"
+                                    }
 
-                                Log.d("retrofit2", "temp: $temp")
-                                Log.d("retrofit2", "pop: $pop")
-                                Log.d("retrofit2", "wind: $wind")
-                                Log.d("retrofit2", "uvi: $uvi")
-                                Log.d("retrofit2", "main: $main")
+                                    val temp = forecastBody.get("temp").asLong
+                                    val wind = forecastBody.get("wind_speed").asInt
 
-                                // 온도의 경우 절대 온도로 가져오기 때문에 섭씨는 변환이 필요하다
-                                val temp_trans = (temp - 273.15)
+                                    val weatherArray = forecastBody.getAsJsonArray("weather")
+                                    val weatherBody = weatherArray[0].asJsonObject
+                                    val main = weatherBody.get("main").asString
 
-                                // 각 데이터를 리스트에 넣기
-                                hourlyTemp.add(temp_trans.toLong())
-                                hourlyPop.add(pop)
-                                hourlyWind.add(wind)
-                                hourlyUvi.add(uvi)
-                                hourlyMain.add(main)
+
+                                    Log.d("retrofit2", "i: $i")
+                                    Log.d("retrofit2", "temp: $temp")
+                                    Log.d("retrofit2", "pop: $rainPercent")
+                                    Log.d("retrofit2", "wind: $wind")
+                                    Log.d("retrofit2", "uvi: $uvi")
+                                    Log.d("retrofit2", "main: $main")
+                                }
+                                // i = 0 이후로는 정상적인 동작을 실시
+                                else{
+                                    val temp = forecastBody.get("temp").asLong
+                                    val pop = forecastBody.get("pop").asDouble
+                                    val wind = forecastBody.get("wind_speed").asInt
+                                    val uvi = forecastBody.get("uvi").asDouble
+                                    val weatherArray = forecastBody.getAsJsonArray("weather")
+                                    val weatherBody = weatherArray[0].asJsonObject
+                                    val main = weatherBody.get("main").asString
+
+                                    Log.d("retrofit2", "temp: $temp")
+                                    Log.d("retrofit2", "pop: $pop")
+                                    Log.d("retrofit2", "wind: $wind")
+                                    Log.d("retrofit2", "uvi: $uvi")
+                                    Log.d("retrofit2", "main: $main")
+
+                                    // 온도의 경우 절대 온도로 가져오기 때문에 섭씨는 변환이 필요하다
+                                    val temp_trans = (temp - 273.15)
+
+                                    // 각 데이터를 리스트에 넣기
+                                    hourlyTemp.add(temp_trans.toLong())
+                                    hourlyPop.add((pop * 100))
+                                    hourlyWind.add(wind)
+                                    hourlyUvi.add(uvi)
+                                    hourlyMain.add(main)
+                                }
                             }
                             completion(hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain)
                         }
