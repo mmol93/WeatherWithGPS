@@ -6,6 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/new_alarm_background"
     android:paddingTop="80dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+
     >
 
     <ScrollView
@@ -33,6 +36,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
+                android:background="@drawable/container_round_shape"
                 >
 
                 <ImageView
@@ -95,20 +99,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:orientation="vertical"
                 android:layout_marginTop="13dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hourly_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="13dp"
+                android:background="@drawable/container_round_shape"
                 >
 
                 <ImageView
@@ -179,8 +185,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="13dp"
+                android:background="@drawable/container_round_shape"
                 >
 
                 <ImageView
