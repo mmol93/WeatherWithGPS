@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.weatherwithgps_sample.adapter.WeatherAdapter
+import com.example.weatherwithgps_sample.adapter.DailyWeatherAdapter
+import com.example.weatherwithgps_sample.adapter.HourlyWeatherAdapter
 import com.example.weatherwithgps_sample.databinding.FragmentWeatherTapBinding
 import com.example.weatherwithgps_sample.retrofit.RetrofitManager
 import java.text.SimpleDateFormat
@@ -101,10 +102,13 @@ class WeatherTap : Fragment() {
                 Log.d("retrofit2", "from UI level, hourlyMain: $hourlyMain")
 
                 // 시간별 데이터를 리사이클러 어댑터에 보내기
-                val hourlyAdapter = WeatherAdapter(requireContext(),hourlyTemp, hourlyPop, hourlyMain)
+                val hourlyAdapter = HourlyWeatherAdapter(requireContext(),hourlyTemp, hourlyPop, hourlyMain)
                 binder.hourlyRecycler.layoutManager =
                     GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
                 binder.hourlyRecycler.adapter = hourlyAdapter
+
+                // 날짜별 데이터를 리사이클러 어댑터로 보내기
+                val dailyAdapter = DailyWeatherAdapter(requireContext())
 
                 // OneCall API에서 얻어서 뷰에 넣는 경우 여기에 정의한다
                 binder.rainPercentTextView.text = Weather.rainPercent.toString() + "%"

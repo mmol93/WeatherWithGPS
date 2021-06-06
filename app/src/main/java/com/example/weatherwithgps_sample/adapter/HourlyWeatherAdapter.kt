@@ -10,18 +10,18 @@ import com.example.weatherwithgps_sample.App
 import com.example.weatherwithgps_sample.R
 import com.example.weatherwithgps_sample.databinding.HourlyRowBinding
 
-class WeatherAdapter(val context : Context,
-                     val hourlyTemp : ArrayList<Long>, val hourlyPop : ArrayList<Double>, val hourlyMain : ArrayList<String>)
-    : RecyclerView.Adapter<ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.hourly_row, parent, false))
+class HourlyWeatherAdapter(val context : Context,
+                           val hourlyTemp : ArrayList<Long>, val hourlyPop : ArrayList<Double>, val hourlyMain : ArrayList<String>)
+    : RecyclerView.Adapter<HourlyViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyViewHolder {
+        return HourlyViewHolder(LayoutInflater.from(context).inflate(R.layout.hourly_row, parent, false))
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.row_tempText.text = "${hourlyTemp[position]}℃"
-        holder.row_rainText.text = "${hourlyPop[position].toInt()}%"
-        holder.row_timeText.text = "${App.hour[position]}:00"
+    override fun onBindViewHolder(holderHourly: HourlyViewHolder, position: Int) {
+        holderHourly.row_tempText.text = "${hourlyTemp[position]}℃"
+        holderHourly.row_rainText.text = "${hourlyPop[position].toInt()}%"
+        holderHourly.row_timeText.text = "${App.hour[position]}:00"
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +29,7 @@ class WeatherAdapter(val context : Context,
     }
 }
 
-class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+class HourlyViewHolder(view : View) : RecyclerView.ViewHolder(view){
     val binder : HourlyRowBinding = HourlyRowBinding.bind(view)
 
     val row_tempText = binder.tempTextView
