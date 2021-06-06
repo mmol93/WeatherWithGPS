@@ -2,4 +2,13 @@
     <string name="app_name">WeatherWithGPS_sample</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="week_sun">SUN</string>
+    <string name="week_mon">MON</string>
+    <string name="week_tue">TUE</string>
+    <string name="week_wed">WED</string>
+    <string name="week_thur">THU</string>
+    <string name="week_fri">FRI</string>
+    <string name="week_sat">SAT</string>
+
 </resources>

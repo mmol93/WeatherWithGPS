@@ -1,15 +1,17 @@
 package com.example.weatherwithgps_sample.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherwithgps_sample.Calendar
 import com.example.weatherwithgps_sample.R
 import com.example.weatherwithgps_sample.databinding.DailyRowBinding
 
 class DailyWeatherAdapter(val context: Context,
-                          val weekList : ArrayList<String>,
                           val rainPercentList : ArrayList<Int>,
                           val weatherMainList : ArrayList<String>,
                           val minTempList : ArrayList<Int>,
@@ -19,12 +21,18 @@ class DailyWeatherAdapter(val context: Context,
         return DailyViewHolder(LayoutInflater.from(context).inflate(R.layout.daily_row, parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val weekList = Calendar.getWeek()
+        Log.d("test", "weekList: $weekList")
+        holder.row_dayWeek.text = weekList[position]
+        holder.row_rainText.text = rainPercentList[position].toString() + "%"
+        holder.row_minMaxText.text = minTempList[position].toString() + "℃"
+        holder.row_minMaxText.text = maxTempList[position].toString() + "℃"
     }
 
     override fun getItemCount(): Int {
-        return weekList.size
+        return rainPercentList.size
     }
 }
 class DailyViewHolder(view: View) : RecyclerView.ViewHolder(view){

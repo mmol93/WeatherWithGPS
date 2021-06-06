@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherwithgps_sample.adapter.DailyWeatherAdapter
 import com.example.weatherwithgps_sample.adapter.HourlyWeatherAdapter
 import com.example.weatherwithgps_sample.databinding.FragmentWeatherTapBinding
@@ -52,11 +53,12 @@ class WeatherTap : Fragment() {
         // 현재 시간에서 3시간을 더한다
         var hourlyHour = System.currentTimeMillis() + (3*60*60*1000)
         // hourly에 사용될 시간 간격은 3시간이므로 3시간 씩 더한 시간을 리스트로 만든다
+        // add 하기 전에 클리어
+        App.hour.clear()
         for (i in 1..10){
             App.hour.add(hourFormat.format(hourlyHour))
             hourlyHour += (3 * 60 * 60 * 1000)
         }
-        Log.d("test", "App.hour: ${App.hour}")
 
         // current weather API 호출
         val locationInfo = "${App.cityName}, ${App.stateCode}, ${App.countryCode}"
@@ -108,7 +110,9 @@ class WeatherTap : Fragment() {
                 binder.hourlyRecycler.adapter = hourlyAdapter
 
                 // 날짜별 데이터를 리사이클러 어댑터로 보내기
-                val dailyAdapter = DailyWeatherAdapter(requireContext())
+                val dailyAdapter = DailyWeatherAdapter(requireContext(), dailyPop, dailyMain, dailyMinTemp, dailyMaxTemp)
+                binder.dailyRecycler.layoutManager= LinearLayoutManager(requireContext())
+                binder.dailyRecycler.adapter = dailyAdapter
 
                 // OneCall API에서 얻어서 뷰에 넣는 경우 여기에 정의한다
                 binder.rainPercentTextView.text = Weather.rainPercent.toString() + "%"
