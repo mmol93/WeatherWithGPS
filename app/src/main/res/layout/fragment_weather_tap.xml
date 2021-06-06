@@ -286,9 +286,9 @@
                 android:layout_marginTop="13dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/forecast_recycler"
+                    android:id="@+id/daily_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

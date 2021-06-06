@@ -85,8 +85,8 @@ class RetrofitManager {
     }
     // 날씨 예보에 대한 API 가져오기
     fun getForecast(lat : String, lon : String, part : String, appid : String, completion: (
-        ArrayList<Long>, ArrayList<Double>, ArrayList<Int>, ArrayList<Double>, ArrayList<String>
-            ) -> Unit){
+        ArrayList<Long>, ArrayList<Double>, ArrayList<Int>, ArrayList<Double>, ArrayList<String>,
+            ArrayList<Int>, ArrayList<Int>, ArrayList<Int>, ArrayList<String>) -> Unit){
         val call = iRetrofit?.getForecast(lat, lon, part, appid) ?: return
 
         call.enqueue(object : retrofit2.Callback<JsonElement>{
@@ -169,7 +169,41 @@ class RetrofitManager {
                                     hourlyMain.add(main)
                                 }
                             }
-                            completion(hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain)
+                            // 여기서 부턴 daily 데이터 얻기
+                            val dailyMinTempList = ArrayList<Int>()  // 최저 온도
+                            val dailyMaxTempList = ArrayList<Int>() // 최고 온도
+                            val dailyPopList = ArrayList<Int>() // 강수 확률
+                            val dailyMainList = ArrayList<String>() // 날씨 설명
+
+                            val dailyForecast = body.getAsJsonArray("daily")
+                            // 1번 인덱스부터 내일 날씨를 의미한다
+                            // 일주일치의 데이터를 저장
+                            for (i in 1..7){
+                                val dailyBody = dailyForecast[i].asJsonObject
+                                val dailyPop = dailyBody.get("pop").asDouble
+
+                                val tempBody = dailyBody.getAsJsonObject("temp")
+                                val dailyMinTemp = tempBody.get("min").asLong
+                                val dailyMaxTemp = tempBody.get("max").asLong
+                                val dailyMinTempTrans = dailyMinTemp - 273.15
+                                val dailyMaxTempTrans = dailyMaxTemp - 273.15
+
+
+                                val weatherJsonArray = dailyBody.getAsJsonArray("weather")
+                                val weatherBody = weatherJsonArray[0].asJsonObject
+                                val dailyMain = weatherBody.get("main").asString
+
+                                dailyMinTempList.add(dailyMinTempTrans.toInt())
+                                dailyMaxTempList.add(dailyMaxTempTrans.toInt())
+                                dailyPopList.add((dailyPop * 100).toInt())
+                                dailyMainList.add(dailyMain)
+                            }
+                            Log.d("retrofit3", "dailyMinTempList: $dailyMinTempList")
+                            Log.d("retrofit3", "dailyMaxTempList: $dailyMaxTempList")
+                            Log.d("retrofit3", "dailyPopList: $dailyPopList")
+                            Log.d("retrofit3", "dailyMainList: $dailyMainList")
+                            completion(hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain
+                            , dailyMinTempList, dailyMaxTempList, dailyPopList, dailyMainList)
                         }
                     }
                 }

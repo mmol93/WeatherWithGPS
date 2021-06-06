@@ -91,8 +91,8 @@ class WeatherTap : Fragment() {
             })
 
         // weather forecast API 데이터 호출
-        RetrofitManager.instance.getForecast("${App.lat}", "${App.lon}", "hourly.temp", API.ID,
-            completion = { hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain ->
+        RetrofitManager.instance.getForecast("${App.lat}", "${App.lon}", "hourly.temp,daily.temp", API.ID,
+            completion = { hourlyTemp, hourlyPop, hourlyWind, hourlyUvi, hourlyMain, dailyMinTemp, dailyMaxTemp, dailyPop, dailyMain ->
                 // 결과 값 로그 출력
                 Log.d("retrofit2", "from UI level, hourlyTemp: $hourlyTemp")
                 Log.d("retrofit2", "from UI level, hourlyPop: $hourlyPop")
