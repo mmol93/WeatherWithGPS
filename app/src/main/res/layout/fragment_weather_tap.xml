@@ -147,8 +147,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/wind"
-                    app:tint="@color/white" />
+                    app:srcCompat="@drawable/ic_rain"
+                    />
 
                 <TextView
                     android:id="@+id/rain_textView"
@@ -180,8 +180,8 @@
                     app:layout_constraintHorizontal_bias="0.674"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pressure"
-                    app:tint="@color/white" />
+                    app:srcCompat="@drawable/ic_uv"
+                    />
 
                 <TextView
                     android:id="@+id/UV_textView"
@@ -220,8 +220,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/wind"
-                    app:tint="@color/white" />
+                    app:srcCompat="@drawable/ic_drop"
+                    />
 
                 <TextView
                     android:id="@+id/humidity_textView"
@@ -253,8 +253,8 @@
                     app:layout_constraintHorizontal_bias="0.674"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pressure"
-                    app:tint="@color/white" />
+                    app:srcCompat="@drawable/ic_wind"
+                    />
 
                 <TextView
                     android:id="@+id/wind_textView"
