@@ -9,6 +9,7 @@ object Calendar {
     val weekList = ArrayList<String>()
 
     fun getWeek() : ArrayList<String> {
+        weekList.clear()
         for (i in 1..7){
             val week_cal = calendar.add(Calendar.DAY_OF_WEEK, 1)
             val week = calendar.get(Calendar.DAY_OF_WEEK)

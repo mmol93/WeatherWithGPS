@@ -1,0 +1,17 @@
+parameter / icon
+
+Thunderstorm = thunder
+
+drizzle = little rain
+
+rain = rain
+
+snow = snow
+
+clear = sunny
+
+clouds = clouds
+
+Mist, Dust, Fog, haze, sand, dust, ash = Mist
+
+Tonardo, Sqaull = Squall

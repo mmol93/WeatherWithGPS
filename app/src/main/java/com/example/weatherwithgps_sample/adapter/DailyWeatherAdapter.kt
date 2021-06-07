@@ -27,8 +27,8 @@ class DailyWeatherAdapter(val context: Context,
         Log.d("test", "weekList: $weekList")
         holder.row_dayWeek.text = weekList[position]
         holder.row_rainText.text = rainPercentList[position].toString() + "%"
-        holder.row_minMaxText.text = minTempList[position].toString() + "℃"
-        holder.row_minMaxText.text = maxTempList[position].toString() + "℃"
+        holder.row_minMaxText.text = minTempList[position].toString() + "℃ / "
+        holder.row_minMaxText.append(maxTempList[position].toString() + "℃")
     }
 
     override fun getItemCount(): Int {

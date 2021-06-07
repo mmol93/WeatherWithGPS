@@ -22,6 +22,17 @@ class HourlyWeatherAdapter(val context : Context,
         holderHourly.row_tempText.text = "${hourlyTemp[position]}℃"
         holderHourly.row_rainText.text = "${hourlyPop[position].toInt()}%"
         holderHourly.row_timeText.text = "${App.hour[position]}:00"
+        // main에 있는 날씨 상태에 따른 다른 이미지 넣어주기
+        when(hourlyMain[position]){
+            "Thunderstorm" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_thunder)
+            "Drizzle" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_little_rain)
+            "Rain" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_rain)
+            "Snow" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_snow)
+            "Clear" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_sunny)
+            "Clouds" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_clouds)
+            "Mist", "Dust", "Fog", "Haze", "Sand", "Ash" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_fog)
+            "Tornado", "Squall" -> holderHourly.row_weatherImage.setImageResource(R.drawable.ic_tornado)
+        }
     }
 
     override fun getItemCount(): Int {

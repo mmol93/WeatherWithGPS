@@ -23,7 +23,7 @@
         android:layout_height="35dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/sunrise"
-        app:tint="@color/Yellow" />
+        />
 
     <TextView
         android:id="@+id/temp_textView"
