@@ -49,12 +49,12 @@
         android:id="@+id/weather_imageView"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginStart="75dp"
+        android:layout_marginStart="80dp"
         app:layout_constraintStart_toEndOf="@id/rainPercent_imageView"
         app:layout_constraintTop_toTopOf="@id/rainPercent_imageView"
         app:layout_constraintBottom_toBottomOf="@id/rainPercent_imageView"
         app:srcCompat="@drawable/sunrise"
-        app:tint="@color/white" />
+        app:tint="@color/Yellow" />
 
     <TextView
         android:id="@+id/minMax_textView"
