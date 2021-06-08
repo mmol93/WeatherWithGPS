@@ -87,6 +87,16 @@ class WeatherTap : Fragment() {
                 binder.dataTextView.text = "${App.cityName}   "
                 binder.dataTextView.append(now)
                 binder.mainTextView.text = Weather.main
+                when(Weather.main){
+                    "Thunderstorm" -> binder.weatherImageView.setImageResource(R.drawable.ic_thunder)
+                    "Drizzle" -> binder.weatherImageView.setImageResource(R.drawable.ic_little_rain)
+                    "Rain" -> binder.weatherImageView.setImageResource(R.drawable.ic_rain)
+                    "Snow" -> binder.weatherImageView.setImageResource(R.drawable.ic_snow)
+                    "Clear" -> binder.weatherImageView.setImageResource(R.drawable.ic_sunny)
+                    "Clouds" -> binder.weatherImageView.setImageResource(R.drawable.ic_clouds)
+                    "Mist", "Dust", "Fog", "Haze", "Sand", "Ash" -> binder.weatherImageView.setImageResource(R.drawable.ic_fog)
+                    "Tornado", "Squall" -> binder.weatherImageView.setImageResource(R.drawable.ic_tornado)
+                }
                 binder.tempTextView.text = Weather.temp.toString() + "℃"
                 binder.minMaxTextView.text = Weather.min_temp.toString() + "℃ / "
                 binder.minMaxTextView.append("${Weather.max_temp}℃")
@@ -121,6 +131,9 @@ class WeatherTap : Fragment() {
                 binder.UVpercentTextView.text = Weather.uvi
                 binder.progressBar.isGone = true
                 binder.refreshImageView.isGone = false
+                if (Weather.rainPercent in 40..50){
+                    binder.weatherImageView.setImageResource(R.drawable.ic_little_rain)
+                }
             })
     }
 }

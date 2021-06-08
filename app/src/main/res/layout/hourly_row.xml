@@ -43,8 +43,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/humidity"
-            app:tint="@color/teal_200" />
+            app:srcCompat="@drawable/ic_drop"
+             />
 
         <TextView
             android:id="@+id/rainPercent_textView"

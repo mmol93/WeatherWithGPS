@@ -13,7 +13,7 @@ import com.example.weatherwithgps_sample.databinding.DailyRowBinding
 
 class DailyWeatherAdapter(val context: Context,
                           val rainPercentList : ArrayList<Int>,
-                          val weatherMainList : ArrayList<String>,
+                          val dailyMainList : ArrayList<String>,
                           val minTempList : ArrayList<Int>,
                           val maxTempList : ArrayList<Int>)
     : RecyclerView.Adapter<DailyViewHolder>() {
@@ -29,6 +29,21 @@ class DailyWeatherAdapter(val context: Context,
         holder.row_rainText.text = rainPercentList[position].toString() + "%"
         holder.row_minMaxText.text = minTempList[position].toString() + "℃ / "
         holder.row_minMaxText.append(maxTempList[position].toString() + "℃")
+        when(dailyMainList[position]){
+            "Thunderstorm" -> holder.row_weatherImage.setImageResource(R.drawable.ic_thunder)
+            "Drizzle" -> holder.row_weatherImage.setImageResource(R.drawable.ic_little_rain)
+            "Rain" -> {
+                holder.row_weatherImage.setImageResource(R.drawable.ic_rain)
+                if (rainPercentList[position] in 40..50){
+                    holder.row_weatherImage.setImageResource(R.drawable.ic_little_rain)
+                }
+            }
+            "Snow" -> holder.row_weatherImage.setImageResource(R.drawable.ic_snow)
+            "Clear" -> holder.row_weatherImage.setImageResource(R.drawable.ic_sunny)
+            "Clouds" -> holder.row_weatherImage.setImageResource(R.drawable.ic_clouds)
+            "Mist", "Dust", "Fog", "Haze", "Sand", "Ash" -> holder.row_weatherImage.setImageResource(R.drawable.ic_fog)
+            "Tornado", "Squall" -> holder.row_weatherImage.setImageResource(R.drawable.ic_tornado)
+        }
     }
 
     override fun getItemCount(): Int {

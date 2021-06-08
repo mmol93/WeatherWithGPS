@@ -62,13 +62,13 @@
                 >
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/weather_imageView"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="15dp"
                     app:srcCompat="@drawable/sunrise"
-                    app:tint="@color/white" />
+                    />
 
                 <TextView
                     android:id="@+id/temp_textView"
@@ -147,7 +147,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_rain"
+                    app:srcCompat="@drawable/ic_drop"
                     />
 
                 <TextView
@@ -220,8 +220,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_drop"
-                    />
+                    app:srcCompat="@drawable/ic_humility"
+                    app:tint="@color/tint_blue" />
 
                 <TextView
                     android:id="@+id/humidity_textView"
